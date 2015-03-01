@@ -10,8 +10,8 @@ Textile or ...).
 * Why Another One?
 
 - I want to use (and get better at) Instaparse
-- I want to have a quick feedback /
-improvement cycle, since I plan to use this for my own projects.
+- I want to have a quick feedback / improvement cycle, since I plan to
+  use this for my own projects.
 
 * Disclaimer
 
