@@ -3,5 +3,9 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :aliases {"autotest" ["midje" ":autotest"]}
+  :profiles {:dev {:dependencies [[midje "1.6.3"]]
+                   :plugins [[lein-midje "3.1.3"]]}
+             :uberjar {:aot :all}}
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [midje "1.6.3"]])
+                 [instaparse "1.3.5"]])
