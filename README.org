@@ -1,0 +1,8 @@
+#+TITLE: YACLOMP
+
+YACLOMP -- Yet Another Clojure Org-Mode Parser
+
+* Why?
+
+- Because I like writing in Org Mode a lot better than Markdown (or Textile or ...).
+
