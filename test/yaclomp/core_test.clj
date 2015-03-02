@@ -6,9 +6,12 @@
 
 
 (facts "About parsing Org Mode"
-  (po "") => [{:t :pl
-               :b ""}]
-  (po "Just some text") => [{:t :pl
-                             :b "Just some text"}]
-  (future-fact (po "* Headline") => [{:t :hd
-                                      :b "Headline"}]))
+  (po "") => [:document [:section]]
+
+  (po "Just some text") =>
+  [:document [:section "Just some text"]]
+
+  (po "* Headline")
+  => [:document
+      [:section]
+      [:topsection [:headline [:stars "*"] " Headline"] [:section]]])
