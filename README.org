@@ -9,7 +9,7 @@ Textile or ...).
 
 * Why [[https://github.com/gmorpheme/organum][Another]] [[https://github.com/nakkaya/static][One]]?
 
-- I want to use (and get better at) Instaparse
+- I want to use (and get better at) [[https://github.com/Engelberg/instaparse][Instaparse]];
 - I want to have a quick feedback / improvement cycle, since I plan to
   use this for my own projects.
 
