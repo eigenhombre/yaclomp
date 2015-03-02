@@ -1,24 +1,32 @@
 (ns yaclomp.core
   (:require [instaparse.core :as insta]))
 
-
 (def grammar "
   document = section topsection*
+  headline = stars space+ uptonewline
+  section = (blank-line | meta-line | uptonewline)*
   topsection = headline section
-  section = (blank-line | uptonewline)*
-  <blank-line> = #'\\s*\n'
-  <WS> = ' '*
-  <uptonewline> = #'[^\n]*'
-  headline = stars WS uptonewline
+  meta-line = meta-hdr uptonewline
+  meta-hdr = hash-plus word colon space
+  word = #'[a-zA-Z]'+
+  punct = #'\\.'
+  space = ' '
+  hash-plus = '#+'
+  colon = ':'
+  newline = '\n'
+  blank-line = space* newline
+  uptonewline = !(meta-hdr stars) #'[^\n]*'
   stars = #'\\*+'
 ")
 
 (def parse-org (insta/parser grammar))
+(count
+ (insta/parses parse-org "
+#+TITLE: All Your Org Mode Dox are Belong to Us...
 
-(parse-org "
 A bit at the top.  
 
-* Hey good lookin'
+* Hey good lookin
  
 * Another headline
 * and another...
@@ -26,20 +34,35 @@ A bit at the top.
 Here's some body copy.
 
 *** with deeper nesting...
-")
+"))
+
 
 ;;=>
 [:document
- [:section "\n" "A bit at the top.  " "\n\n"]
- [:topsection
-  [:headline [:stars "*"] " Hey good lookin'"]
-  [:section "\n \n"]]
- [:topsection
-  [:headline [:stars "*"] " Another headline"]
-  [:section "\n"]]
- [:topsection
-  [:headline [:stars "*"] " and another..."]
-  [:section "\n\n" "Here's some body copy." "\n\n"]]
- [:topsection
-  [:headline [:stars "***"] " with deeper nesting..."]
-  [:section "\n"]]]
+ [:section
+  [:blank-line [:newline "\n"]]
+  [:meta-line
+   [:meta-hdr
+    [:hash-plus "#+"]
+    [:word "T" "I" "T" "L" "E"]
+    [:colon ":"]
+    [:space " "]]
+   [:uptonewline "All Your Org Mode Dox are Belong to Us..."]]
+  [:blank-line [:newline "\n"]]
+  [:blank-line [:newline "\n"]]
+  [:uptonewline "A bit at the top.  "]
+  [:blank-line [:newline "\n"]]
+  [:blank-line [:newline "\n"]]
+  [:uptonewline "* Hey good lookin"]
+  [:blank-line [:newline "\n"]]
+  [:blank-line [:space " "] [:newline "\n"]]
+  [:uptonewline "* Another headline"]
+  [:blank-line [:newline "\n"]]
+  [:uptonewline "* and another..."]
+  [:blank-line [:newline "\n"]]
+  [:blank-line [:newline "\n"]]
+  [:uptonewline "Here's some body copy."]
+  [:blank-line [:newline "\n"]]
+  [:blank-line [:newline "\n"]]
+  [:uptonewline "*** with deeper nesting..."]
+  [:blank-line [:newline "\n"]]]]
