@@ -1,7 +1,7 @@
-(ns yaclomp.core-test
+(ns yaclomp.parser-test
   (:require [instaparse.core :as insta]
             [midje.sweet :refer :all]
-            [yaclomp.core :refer [parse-org] :rename {parse-org po}]))
+            [yaclomp.parser :refer [parse-org]]))
 
 
 (fact "A complex document parses unambiguously"
@@ -30,5 +30,5 @@ More whitespace above.
 
 Some more text.
 "
-       (insta/parses po)
+       (insta/parses parse-org)
        count) => 1)

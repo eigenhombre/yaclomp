@@ -1,4 +1,4 @@
-(ns yaclomp.core
+(ns yaclomp.parser
   (:require [instaparse.core :as insta]))
 
 
