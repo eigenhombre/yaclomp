@@ -1,0 +1,12 @@
+D            = content-line*
+content-line = meta-name / blank-line / outline-line / other-line
+meta-name    = <meta-hdr> hdr-name <':' ' '*> hdr-content newline
+meta-hdr     = '#+'
+hdr-content  = !whitespace #'[^\n]+'
+whitespace   = #'\s+'
+blank-line   = whitespace? newline
+other-line   = !(meta-hdr | stars) #'[^\n]+' newline
+stars        = '*'+
+outline-line = stars !(stars) #'[^\n]+' newline
+hdr-name     = !whitespace #'[a-zA-Z][a-zA-Z0-9]*'
+<newline>    = <'\n'>

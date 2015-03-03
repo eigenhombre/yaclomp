@@ -1,17 +1,34 @@
 (ns yaclomp.core-test
-  (:require [midje.sweet :refer :all]
-            [yaclomp.core
-             :refer [parse-org]
-             :rename {parse-org po}]))
+  (:require [instaparse.core :as insta]
+            [midje.sweet :refer :all]
+            [yaclomp.core :refer [parse-org] :rename {parse-org po}]))
 
 
-(facts "About parsing Org Mode"
-  (po "") => [:document [:section]]
+(fact "A complex document parses unambiguously"
+  (->> "#+TITLE: All Your Org Mode Dox are Belong to Us...
 
-  (po "Just some text") =>
-  [:document [:section "Just some text"]]
+A bit at the top.  
 
-  (po "* Headline")
-  => [:document
-      [:section]
-      [:topsection [:headline [:stars "*"] " Headline"] [:section]]])
+* Hey good lookin
+ 
+* Another headline
+* and another...
+
+Here's some body copy.
+
+*** with deeper nesting...
+
+#+META: a b c
+
+doe a deer a female deer
+
+* A topic
+** Another topic
+* A toplevel topic
+
+More whitespace above.
+
+Some more text.
+"
+       (insta/parses po)
+       count) => 1)
