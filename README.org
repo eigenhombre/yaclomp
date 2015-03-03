@@ -2,11 +2,12 @@
 
 Yet Another Clojure Org-Mode Parser
 
+/Work in progress.  Do not pass go.  Do not collect $200./
+
 * Why?
 
 Because I like writing in [[http://orgmode.org/][Org Mode]] a lot better than Markdown (or
-Textile or ...).  /Work in progress.  Do not pass
-go.  Do not collect $200./
+Textile or ...).
 
 * Why [[https://github.com/gmorpheme/organum][Another]] [[https://github.com/nakkaya/static][One]]?
 
@@ -16,7 +17,11 @@ go.  Do not collect $200./
 
 * Status
 
-I just started this.
+Uh, I just started.
+
+* License
+
+Copyright (c) 2015 John Jacobsen.  MIT license.
 
 * Disclaimer
 
