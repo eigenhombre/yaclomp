@@ -35,7 +35,7 @@ Some more text -- with [[http://x.org][a link]].
        count) => 1)
 
 
-(fact "Links parse successfully..."
+(future-fact "Links parse successfully..."
   (fact "Without trailing space..."
     (let [[p & ps :as x]
           (->> "[[http://johnj.com][a link]]\n"
@@ -92,11 +92,12 @@ More whitespace above.
 
 
 (def p (insta/parser "
-document = (vanilla | link)*
-vanilla = !link #'.+'
-link = '[[' link-target ('][' link-body)? ']]'
+document    = (hdr / link / vanilla)*
+vanilla     = !link !hdr #'(?s).+'
+link        = '[[' link-target ('][' link-body)? ']]'
 link-target = #'[^\\[]'+
-link-body = #'[^\\[]'+
+link-body   = #'[^\\[]'+
+hdr         = '*'+ #'\\s+' #'.+'
 "))
 
 
@@ -107,6 +108,7 @@ link-body = #'[^\\[]'+
     ;; Not ambiguous
     rs => nil
     (println r)
+    ;; Contains all the right stuffz...
     (let [ts
           (tree-seq coll? identity r)]
       (doseq [d desired]
@@ -118,8 +120,12 @@ link-body = #'[^\\[]'+
         (fn [txt & tags]
           (p-has (insta/parses p txt) tags))]
     (checker "1 2" :document :vanilla)
+    (checker "1 2\n3 4" :document :vanilla)
     (checker "[[http://johnj.com]]" :link :link-target)
     (checker "[[http://johnj.com][a body]]"
              :link
              :link-target
-             :link-body)))
+             :link-body)
+    (checker "* header body" :hdr)
+    (checker "* header body\nWith more stuff"
+             :hdr :vanilla)))
