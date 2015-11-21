@@ -4,6 +4,10 @@ Yet Another Clojure Org-Mode Parser
 
 /Work in progress.  Do not pass go.  Do not collect $200./
 
+* DON'T USE THIS........................
+
+.... use [[https://github.com/eigenhombre/clj-org][this one]] instead.
+
 * Why?
 
 Because I like writing in [[http://orgmode.org/][Org Mode]] a lot better than Markdown (or
@@ -17,7 +21,7 @@ Textile or ...).
 
 * Status
 
-Uh, I just started.
+Abandoned in favor of [[https://github.com/eigenhombre/clj-org][clj-org]].
 
 * License
 
